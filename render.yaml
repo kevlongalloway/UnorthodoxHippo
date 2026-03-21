@@ -63,8 +63,7 @@ services:
   - type: web
     name: precis-web
     env: static
-    # Note: static sites do not support the region field — Render controls placement
-    plan: free
+    # Note: static sites do not support region or plan fields
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
