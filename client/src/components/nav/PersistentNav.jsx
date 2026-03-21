@@ -51,9 +51,10 @@ export default function PersistentNav() {
       <style>{`
         .pn-top{position:sticky;top:0;z-index:200;backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
         .pn-bot{position:fixed;bottom:0;left:0;right:0;z-index:200;backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
-        .pn-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;min-width:48px;transition:all .15s}
+        .pn-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;min-width:48px;transition:opacity .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
         .pn-btn:hover{opacity:1!important}
-        .pn-more-item{display:flex;align-items:center;gap:10px;padding:10px 16px;border:none;background:transparent;width:100%;cursor:pointer;text-align:left;border-radius:8px;transition:background .15s}
+        .pn-btn:active{transform:scale(.92);transition:transform .08s}
+        .pn-more-item{display:flex;align-items:center;gap:10px;padding:10px 16px;border:none;background:transparent;width:100%;cursor:pointer;text-align:left;border-radius:8px;transition:background .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
         .pn-more-item:hover{background:${T.bg3}!important}
         @media(min-width:641px){.pn-bot{display:none!important}}
         @media(max-width:640px){.pn-desk-items{display:none!important}.pn-write-btn{display:none!important}}
