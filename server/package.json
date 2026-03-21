@@ -1,0 +1,24 @@
+{
+  "name": "precis-api",
+  "version": "1.0.0",
+  "description": "Précis API backend — Express + Prisma + Claude AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db:generate": "npx prisma generate",
+    "db:migrate": "npx prisma migrate deploy",
+    "db:push": "npx prisma db push"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "@prisma/client": "^5.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^8.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.20.0"
+  }
+}

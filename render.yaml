@@ -1,0 +1,96 @@
+# Précis — Render Blueprint
+# Deploys three resources:
+#   1. precis-db   — Managed PostgreSQL database
+#   2. precis-api  — Express/Node.js API backend
+#   3. precis-web  — React PWA (static site)
+#
+# Usage:
+#   1. Push this repo to GitHub
+#   2. In the Render dashboard → "New +" → "Blueprint"
+#   3. Connect your repo — Render will provision all three services automatically
+#
+# Required secrets to set manually in the Render dashboard after first deploy:
+#   - ANTHROPIC_API_KEY  (precis-api service → Environment)
+#   - CLERK_SECRET_KEY   (precis-api service → Environment, when Clerk is live)
+
+databases:
+  - name: precis-db
+    databaseName: precis
+    user: precis_user
+    plan: free
+    region: oregon
+    postgresMajorVersion: 16
+
+services:
+  # ── API Backend ──────────────────────────────────────────────────────────────
+  - type: web
+    name: precis-api
+    env: node
+    region: oregon
+    plan: free
+    rootDir: server
+    buildCommand: npm install && npx prisma generate
+    startCommand: npx prisma migrate deploy && node index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # DATABASE_URL is auto-populated by Render from the precis-db resource above
+      - key: DATABASE_URL
+        fromDatabase:
+          name: precis-db
+          property: connectionString
+
+      # Set these manually in the Render dashboard:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+      - key: CLERK_SECRET_KEY
+        sync: false
+
+      - key: CLERK_PUBLISHABLE_KEY
+        sync: false
+
+      - key: RATE_LIMIT_PER_MIN
+        value: "10"
+
+      # Allow requests from the PWA frontend
+      # Update this to your actual precis-web URL once deployed
+      - key: CLIENT_ORIGIN
+        value: "https://precis-web.onrender.com"
+
+  # ── PWA Frontend (Static Site) ───────────────────────────────────────────────
+  - type: web
+    name: precis-web
+    env: static
+    region: oregon
+    plan: free
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
+    headers:
+      # Long-cache for hashed assets (Vite adds content hashes to filenames)
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # No-cache for service worker (must always be fresh)
+      - path: /sw.js
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      # No-cache for everything else (HTML, manifest, icons)
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+    routes:
+      # SPA fallback — all routes serve index.html so React Router works on direct URL access
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # Point the Vite dev-server proxy at the API service
+      # In production the PWA calls /api/* through its own URL (same origin) —
+      # use the actual precis-api URL here for the build-time env var if needed.
+      - key: VITE_API_URL
+        value: "https://precis-api.onrender.com"
