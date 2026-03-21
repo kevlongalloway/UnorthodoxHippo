@@ -55,16 +55,15 @@ services:
       - key: RATE_LIMIT_PER_MIN
         value: "10"
 
-      # Allow requests from the PWA frontend
-      # Update this to your actual precis-web URL once deployed
+      # Set this in the Render dashboard once precis-web is deployed and you have its URL.
       - key: CLIENT_ORIGIN
-        value: "https://precis-web.onrender.com"
+        sync: false
 
   # ── PWA Frontend (Static Site) ───────────────────────────────────────────────
   - type: web
     name: precis-web
     env: static
-    region: oregon
+    # Note: static sites do not support the region field — Render controls placement
     plan: free
     rootDir: client
     buildCommand: npm install && npm run build
@@ -89,8 +88,7 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      # Point the Vite dev-server proxy at the API service
-      # In production the PWA calls /api/* through its own URL (same origin) —
-      # use the actual precis-api URL here for the build-time env var if needed.
+      # Set this in the Render dashboard once precis-api is deployed and you have its URL.
+      # Example: https://precis-api-xxxx.onrender.com
       - key: VITE_API_URL
-        value: "https://precis-api.onrender.com"
+        sync: false
