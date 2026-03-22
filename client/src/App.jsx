@@ -29,7 +29,7 @@ function AppInner() {
     <HashRouter>
       <GlobalStyles />
       <Nav />
-      <main>
+      <main style={{ paddingTop: 56, paddingBottom: 72 }}>
         <Routes>
           <Route path="/" element={<Navigate to="/feed" replace />} />
           <Route path="/feed" element={<Feed />} />
@@ -44,6 +44,7 @@ function AppInner() {
           <Route path="/clubs" element={<Clubs />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/book" element={<BookDetail />} />
+          <Route path="/compass" element={<Challenges />} />
           <Route path="*" element={<Navigate to="/feed" replace />} />
         </Routes>
       </main>

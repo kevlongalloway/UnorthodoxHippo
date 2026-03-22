@@ -5,7 +5,7 @@ import Avatar from '../components/Avatar.jsx';
 import InkBadge from '../components/InkBadge.jsx';
 
 export default function Messages() {
-  const { theme: T } = usePrecis();
+  const { T } = usePrecis();
   const [conversations, setConversations] = useState(CONVERSATIONS);
   const [activeConv, setActiveConv] = useState(null);
   const [newMessage, setNewMessage] = useState('');
@@ -53,20 +53,20 @@ export default function Messages() {
         }}>
           <button
             onClick={() => setActiveConv(null)}
-            style={{ background: 'none', border: 'none', color: T.ink3, fontSize: 20, cursor: 'pointer', padding: '2px 6px 2px 0' }}
+            style={{ background: 'none', border: 'none', color: T.text3, fontSize: 20, cursor: 'pointer', padding: '2px 6px 2px 0' }}
           >
             ←
           </button>
           <Avatar initials={activeConv.with.initials} ink={activeConv.with.ink} size={38} />
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 700, color: T.ink }}>
+            <div style={{ fontFamily: T.ui, fontSize: 14, fontWeight: 700, color: T.text }}>
               {activeConv.with.name}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               {activeConv.with.online && (
                 <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6A9A60', display: 'inline-block' }} />
               )}
-              <span style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4 }}>
+              <span style={{ fontFamily: T.ui, fontSize: 11, color: T.text4 }}>
                 {activeConv.with.online ? 'Active now' : 'Offline'}
               </span>
             </div>
@@ -88,19 +88,19 @@ export default function Messages() {
                 maxWidth: '75%',
                 padding: '10px 14px',
                 borderRadius: msg.mine ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                background: msg.mine ? `linear-gradient(135deg, ${T.accent}, ${T.accentHover})` : T.card,
+                background: msg.mine ? `linear-gradient(135deg, ${T.accent}, ${T.accentHover})` : T.surface,
                 border: msg.mine ? 'none' : `1px solid ${T.border}`,
                 boxShadow: msg.mine ? `0 2px 10px ${T.accent}30` : 'none',
               }}>
                 <div style={{
                   fontFamily: T.body, fontSize: 14, lineHeight: 1.55,
-                  color: msg.mine ? '#fff' : T.ink,
+                  color: msg.mine ? '#fff' : T.text,
                 }}>
                   {msg.text}
                 </div>
                 <div style={{
-                  fontFamily: T.sans, fontSize: 10, marginTop: 4,
-                  color: msg.mine ? 'rgba(255,255,255,0.6)' : T.ink4,
+                  fontFamily: T.ui, fontSize: 10, marginTop: 4,
+                  color: msg.mine ? 'rgba(255,255,255,0.6)' : T.text4,
                   textAlign: msg.mine ? 'right' : 'left',
                 }}>
                   {msg.timeAgo}
@@ -134,7 +134,7 @@ export default function Messages() {
               placeholder="Write a message…"
               style={{
                 flex: 1, background: 'none', border: 'none', outline: 'none',
-                fontFamily: T.body, fontSize: 14, color: T.ink,
+                fontFamily: T.body, fontSize: 14, color: T.text,
                 resize: 'none', maxHeight: 100, lineHeight: 1.4,
               }}
               rows={1}
@@ -146,7 +146,7 @@ export default function Messages() {
             style={{
               width: 44, height: 44, borderRadius: '50%', border: 'none', flexShrink: 0,
               background: newMessage.trim() ? `linear-gradient(135deg, ${T.accent}, ${T.accentHover})` : T.bg3,
-              color: newMessage.trim() ? '#fff' : T.ink4,
+              color: newMessage.trim() ? '#fff' : T.text4,
               cursor: newMessage.trim() ? 'pointer' : 'not-allowed',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 18, transition: 'all 0.15s',
@@ -163,14 +163,14 @@ export default function Messages() {
     <div className="page-content">
       {/* Header */}
       <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${T.border}` }}>
-        <h2 style={{ fontFamily: T.serif, fontSize: 20, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+        <h2 style={{ fontFamily: T.hd, fontSize: 20, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
           Messages
           {totalUnread > 0 && (
             <span style={{
               marginLeft: 10, fontSize: 12,
               padding: '2px 8px', borderRadius: 10,
               background: T.accent, color: '#fff',
-              fontFamily: T.sans, fontWeight: 700, fontStyle: 'normal',
+              fontFamily: T.ui, fontWeight: 700, fontStyle: 'normal',
             }}>
               {totalUnread}
             </span>
@@ -205,19 +205,19 @@ export default function Messages() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
                 <span style={{
-                  fontFamily: T.sans, fontSize: 14,
+                  fontFamily: T.ui, fontSize: 14,
                   fontWeight: conv.unread > 0 ? 700 : 600,
-                  color: T.ink,
+                  color: T.text,
                 }}>
                   {conv.with.name}
                 </span>
-                <span style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4, flexShrink: 0, marginLeft: 8 }}>
+                <span style={{ fontFamily: T.ui, fontSize: 11, color: T.text4, flexShrink: 0, marginLeft: 8 }}>
                   {conv.lastMessage.timeAgo}
                 </span>
               </div>
               <div style={{
                 fontFamily: T.body, fontSize: 13,
-                color: conv.unread > 0 ? T.ink2 : T.ink4,
+                color: conv.unread > 0 ? T.text2 : T.text4,
                 fontWeight: conv.unread > 0 ? 500 : 400,
                 overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
               }}>
@@ -229,7 +229,7 @@ export default function Messages() {
                 width: 20, height: 20, borderRadius: '50%', flexShrink: 0,
                 background: T.accent,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: T.sans, fontSize: 10, fontWeight: 700, color: '#fff',
+                fontFamily: T.ui, fontSize: 10, fontWeight: 700, color: '#fff',
               }}>
                 {conv.unread}
               </div>

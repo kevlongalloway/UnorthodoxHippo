@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { usePrecis } from '../store.jsx';
 import { NOTIFICATIONS } from '../data.js';
-import { getTier, fmtNum } from '../themes.js';
+import { getTier, fmtN } from '../themes.js';
 import Avatar from '../components/Avatar.jsx';
 
 export default function Notifications() {
-  const { theme: T } = usePrecis();
+  const { T } = usePrecis();
   const [notifs, setNotifs] = useState(NOTIFICATIONS);
   const unreadCount = notifs.filter(n => !n.read).length;
 
@@ -31,11 +31,11 @@ export default function Notifications() {
         borderBottom: `1px solid ${T.border}`,
       }}>
         <div>
-          <h2 style={{ fontFamily: T.serif, fontSize: 20, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+          <h2 style={{ fontFamily: T.hd, fontSize: 20, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
             Notifications
           </h2>
           {unreadCount > 0 && (
-            <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4, marginTop: 2 }}>
+            <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text4, marginTop: 2 }}>
               {unreadCount} unread
             </div>
           )}
@@ -46,8 +46,8 @@ export default function Notifications() {
             style={{
               padding: '7px 14px', borderRadius: 20,
               border: `1px solid ${T.border}`, background: 'transparent',
-              fontFamily: T.sans, fontSize: 12, fontWeight: 600,
-              color: T.ink3, cursor: 'pointer',
+              fontFamily: T.ui, fontSize: 12, fontWeight: 600,
+              color: T.text3, cursor: 'pointer',
             }}
           >
             Mark all read
@@ -96,27 +96,27 @@ export default function Notifications() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 {n.type === 'ink' ? (
                   <div>
-                    <div style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 700, color: T.gold, marginBottom: 2 }}>
-                      +{n.amount} Ink {fmtNum(n.amount)}
+                    <div style={{ fontFamily: T.ui, fontSize: 14, fontWeight: 700, color: T.gold, marginBottom: 2 }}>
+                      +{n.amount} Ink {fmtN(n.amount)}
                     </div>
-                    <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink3, lineHeight: 1.4 }}>
+                    <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text3, lineHeight: 1.4 }}>
                       {n.reason}
                     </div>
                   </div>
                 ) : (
                   <div>
-                    <div style={{ fontFamily: T.sans, fontSize: 14, color: T.ink, lineHeight: 1.4 }}>
+                    <div style={{ fontFamily: T.ui, fontSize: 14, color: T.text, lineHeight: 1.4 }}>
                       <span style={{ fontWeight: 700 }}>{n.actor?.name}</span>
                       {' '}
-                      <span style={{ color: T.ink3 }}>{info.label}</span>
+                      <span style={{ color: T.text3 }}>{info.label}</span>
                       {' '}
-                      {n.postTitle && <span style={{ fontStyle: 'italic', fontFamily: T.serif }}>"{n.postTitle}"</span>}
-                      {n.bookTitle && <span style={{ fontStyle: 'italic', fontFamily: T.serif }}>"{n.bookTitle}"</span>}
-                      {n.shelfName && <span style={{ color: T.ink3 }}> → <span style={{ fontStyle: 'italic' }}>{n.shelfName}</span></span>}
+                      {n.postTitle && <span style={{ fontStyle: 'italic', fontFamily: T.hd }}>"{n.postTitle}"</span>}
+                      {n.bookTitle && <span style={{ fontStyle: 'italic', fontFamily: T.hd }}>"{n.bookTitle}"</span>}
+                      {n.shelfName && <span style={{ color: T.text3 }}> → <span style={{ fontStyle: 'italic' }}>{n.shelfName}</span></span>}
                     </div>
                     {n.preview && (
                       <div style={{
-                        fontFamily: T.body, fontSize: 13, color: T.ink3,
+                        fontFamily: T.body, fontSize: 13, color: T.text3,
                         marginTop: 4, fontStyle: 'italic', lineHeight: 1.4,
                         borderLeft: `2px solid ${T.border}`, paddingLeft: 8,
                       }}>
@@ -124,13 +124,13 @@ export default function Notifications() {
                       </div>
                     )}
                     {n.page && (
-                      <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4, marginTop: 3 }}>
+                      <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text4, marginTop: 3 }}>
                         Page {n.page}
                       </div>
                     )}
                   </div>
                 )}
-                <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4, marginTop: 4 }}>
+                <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text4, marginTop: 4 }}>
                   {n.timeAgo}
                 </div>
               </div>
@@ -140,12 +140,12 @@ export default function Notifications() {
       </div>
 
       {notifs.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '60px 20px', color: T.ink4 }}>
+        <div style={{ textAlign: 'center', padding: '60px 20px', color: T.text4 }}>
           <div style={{ fontSize: 36, marginBottom: 12, opacity: 0.4 }}>◆</div>
-          <div style={{ fontFamily: T.serif, fontSize: 18, fontStyle: 'italic', color: T.ink3, marginBottom: 6 }}>
+          <div style={{ fontFamily: T.hd, fontSize: 18, fontStyle: 'italic', color: T.text3, marginBottom: 6 }}>
             All quiet
           </div>
-          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink4 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text4 }}>
             Your notifications will appear here.
           </div>
         </div>

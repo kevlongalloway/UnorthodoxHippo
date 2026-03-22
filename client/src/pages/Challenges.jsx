@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { usePrecis } from '../store.jsx';
 import { CHALLENGES } from '../data.js';
-import { fmtNum } from '../themes.js';
+import { fmtN } from '../themes.js';
 
 export default function Challenges() {
-  const { theme: T } = usePrecis();
+  const { T } = usePrecis();
   const [challenges, setChallenges] = useState(CHALLENGES);
   const [filter, setFilter] = useState('all');
 
@@ -20,10 +20,10 @@ export default function Challenges() {
     <div className="page-content">
       {/* Header */}
       <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${T.border}` }}>
-        <h2 style={{ fontFamily: T.serif, fontSize: 20, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 4 }}>
+        <h2 style={{ fontFamily: T.hd, fontSize: 20, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 4 }}>
           Challenges
         </h2>
-        <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink3 }}>
+        <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text3 }}>
           {joined.length} active · {joined.filter(c => c.progress === c.total).length} completed
         </div>
       </div>
@@ -35,8 +35,8 @@ export default function Challenges() {
             padding: '7px 14px', borderRadius: 20,
             border: 'none', cursor: 'pointer',
             background: filter === f.id ? T.accent : T.bg3,
-            color: filter === f.id ? '#fff' : T.ink3,
-            fontFamily: T.sans, fontSize: 12, fontWeight: 600,
+            color: filter === f.id ? '#fff' : T.text3,
+            fontFamily: T.ui, fontSize: 12, fontWeight: 600,
             transition: 'all 0.15s',
           }}>
             {f.label}
@@ -59,18 +59,18 @@ function ChallengeCard({ challenge, T, onToggle }) {
 
   return (
     <div style={{
-      background: T.card, borderRadius: 16,
-      border: `1px solid ${challenge.joined ? T.borderHover : T.border}`,
+      background: T.surface, borderRadius: 16,
+      border: `1px solid ${challenge.joined ? T.borderActive : T.border}`,
       marginBottom: 12, overflow: 'hidden',
     }}>
       <div style={{ padding: '16px' }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 10 }}>
           <div style={{ flex: 1 }}>
-            <h3 style={{ fontFamily: T.serif, fontSize: 17, fontWeight: 700, color: T.ink, fontStyle: 'italic', lineHeight: 1.3, marginBottom: 4 }}>
+            <h3 style={{ fontFamily: T.hd, fontSize: 17, fontWeight: 700, color: T.text, fontStyle: 'italic', lineHeight: 1.3, marginBottom: 4 }}>
               {challenge.title}
             </h3>
-            <p style={{ fontFamily: T.body, fontSize: 13, color: T.ink3, lineHeight: 1.5 }}>
+            <p style={{ fontFamily: T.body, fontSize: 13, color: T.text3, lineHeight: 1.5 }}>
               {challenge.desc}
             </p>
           </div>
@@ -80,8 +80,8 @@ function ChallengeCard({ challenge, T, onToggle }) {
               padding: '8px 14px', borderRadius: 20, flexShrink: 0,
               border: challenge.joined ? `1px solid ${T.border}` : 'none',
               background: challenge.joined ? 'transparent' : T.accent,
-              color: challenge.joined ? T.ink3 : '#fff',
-              fontFamily: T.sans, fontSize: 11, fontWeight: 700,
+              color: challenge.joined ? T.text3 : '#fff',
+              fontFamily: T.ui, fontSize: 11, fontWeight: 700,
               cursor: 'pointer', transition: 'all 0.15s',
             }}
           >
@@ -93,18 +93,18 @@ function ChallengeCard({ challenge, T, onToggle }) {
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
           {challenge.tags.map(tag => (
             <span key={tag} style={{
-              fontSize: 10, fontFamily: T.sans, fontWeight: 600,
+              fontSize: 10, fontFamily: T.ui, fontWeight: 600,
               color: T.teal, padding: '2px 8px',
               background: `${T.teal}12`, borderRadius: 6,
             }}>
               {tag}
             </span>
           ))}
-          <span style={{ fontSize: 10, fontFamily: T.sans, color: T.ink4, padding: '2px 0' }}>
+          <span style={{ fontSize: 10, fontFamily: T.ui, color: T.text4, padding: '2px 0' }}>
             📅 {challenge.deadline}
           </span>
-          <span style={{ fontSize: 10, fontFamily: T.sans, color: T.ink4 }}>
-            · {fmtNum(challenge.participants)} readers
+          <span style={{ fontSize: 10, fontFamily: T.ui, color: T.text4 }}>
+            · {fmtN(challenge.participants)} readers
           </span>
         </div>
 
@@ -112,10 +112,10 @@ function ChallengeCard({ challenge, T, onToggle }) {
         {challenge.joined && (
           <div style={{ marginBottom: 10 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <span style={{ fontFamily: T.sans, fontSize: 12, fontWeight: 700, color: T.ink2 }}>
+              <span style={{ fontFamily: T.ui, fontSize: 12, fontWeight: 700, color: T.text2 }}>
                 {challenge.progress} / {challenge.total}
               </span>
-              <span style={{ fontFamily: T.sans, fontSize: 12, color: T.gold, fontWeight: 700 }}>
+              <span style={{ fontFamily: T.ui, fontSize: 12, color: T.gold, fontWeight: 700 }}>
                 {pct}%
               </span>
             </div>
@@ -137,7 +137,7 @@ function ChallengeCard({ challenge, T, onToggle }) {
             onClick={() => setExpanded(!expanded)}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
-              fontFamily: T.sans, fontSize: 12, fontWeight: 600,
+              fontFamily: T.ui, fontSize: 12, fontWeight: 600,
               color: T.gold, padding: '4px 0',
               display: 'flex', alignItems: 'center', gap: 4,
             }}
@@ -162,16 +162,16 @@ function ChallengeCard({ challenge, T, onToggle }) {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 background: book.done ? `${T.green}20` : T.bg3,
                 border: `1.5px solid ${book.done ? T.green : T.border}`,
-                fontSize: 11, color: book.done ? T.green : T.ink4,
+                fontSize: 11, color: book.done ? T.green : T.text4,
               }}>
                 {book.done ? '✓' : i + 1}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: T.serif, fontSize: 13, fontWeight: 700, color: T.ink, fontStyle: 'italic', textDecoration: book.done ? 'line-through' : 'none' }}>
+                <div style={{ fontFamily: T.hd, fontSize: 13, fontWeight: 700, color: T.text, fontStyle: 'italic', textDecoration: book.done ? 'line-through' : 'none' }}>
                   {book.title}
                 </div>
                 {book.author && (
-                  <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4 }}>
+                  <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text4 }}>
                     {book.author} {book.region && `· ${book.region}`} {book.year && `· ${book.year}`}
                   </div>
                 )}

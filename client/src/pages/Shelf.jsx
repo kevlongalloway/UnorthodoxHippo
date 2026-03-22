@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { usePrecis } from '../store.jsx';
 import { SHELVES, BOOKS } from '../data.js';
-import { fmtNum } from '../themes.js';
+import { fmtN } from '../themes.js';
 import Sheet from '../components/Sheet.jsx';
 
 const SHELF_TABS = ['My Shelves', 'Currently Reading', 'Want to Read', 'Finished'];
 
 export default function Shelf() {
-  const { theme: T } = usePrecis();
+  const { T } = usePrecis();
   const [tab, setTab] = useState('My Shelves');
   const [newShelfOpen, setNewShelfOpen] = useState(false);
   const [newShelfName, setNewShelfName] = useState('');
@@ -33,7 +33,7 @@ export default function Shelf() {
       {/* Header */}
       <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${T.border}` }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h2 style={{ fontFamily: T.serif, fontSize: 20, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+          <h2 style={{ fontFamily: T.hd, fontSize: 20, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
             Shelf
           </h2>
           <button
@@ -41,7 +41,7 @@ export default function Shelf() {
             style={{
               padding: '8px 16px', borderRadius: 20,
               border: 'none', background: T.accent,
-              fontFamily: T.sans, fontSize: 12, fontWeight: 700,
+              fontFamily: T.ui, fontSize: 12, fontWeight: 700,
               color: '#fff', cursor: 'pointer',
             }}
           >
@@ -57,8 +57,8 @@ export default function Shelf() {
             padding: '7px 14px', borderRadius: 20,
             border: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
             background: tab === t ? T.gold : T.bg3,
-            color: tab === t ? (T.id === 'twilight' || T.id === 'stone' ? T.bg : '#fff') : T.ink3,
-            fontFamily: T.sans, fontSize: 12, fontWeight: 600,
+            color: tab === t ? (T.id === 'twilight' || T.id === 'stone' ? T.bg : '#fff') : T.text3,
+            fontFamily: T.ui, fontSize: 12, fontWeight: 600,
             transition: 'all 0.15s',
           }}>
             {t}
@@ -96,8 +96,8 @@ export default function Shelf() {
             style={{
               width: '100%', padding: '12px 14px', borderRadius: 12,
               border: `1px solid ${T.border}`,
-              background: T.bg3, color: T.ink,
-              fontFamily: T.serif, fontSize: 16, fontStyle: 'italic',
+              background: T.bg3, color: T.text,
+              fontFamily: T.hd, fontSize: 16, fontStyle: 'italic',
               outline: 'none', marginBottom: 12,
             }}
           />
@@ -106,7 +106,7 @@ export default function Shelf() {
             style={{
               width: '100%', padding: '12px 14px', borderRadius: 12,
               border: `1px solid ${T.border}`,
-              background: T.bg3, color: T.ink,
+              background: T.bg3, color: T.text,
               fontFamily: T.body, fontSize: 14,
               outline: 'none', resize: 'none', marginBottom: 16,
             }}
@@ -119,8 +119,8 @@ export default function Shelf() {
               width: '100%', padding: '14px', borderRadius: 12,
               border: 'none',
               background: newShelfName.trim() ? `linear-gradient(135deg, ${T.accent}, ${T.accentHover})` : T.bg3,
-              color: newShelfName.trim() ? '#fff' : T.ink4,
-              fontFamily: T.sans, fontSize: 14, fontWeight: 700,
+              color: newShelfName.trim() ? '#fff' : T.text4,
+              fontFamily: T.ui, fontSize: 14, fontWeight: 700,
               cursor: newShelfName.trim() ? 'pointer' : 'not-allowed',
             }}
           >
@@ -137,7 +137,7 @@ function CuratedShelf({ shelf, T }) {
 
   return (
     <div style={{
-      background: T.card, borderRadius: 16,
+      background: T.surface, borderRadius: 16,
       border: `1px solid ${T.border}`, overflow: 'hidden',
     }}>
       <button
@@ -157,19 +157,19 @@ function CuratedShelf({ shelf, T }) {
           ▤
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: T.serif, fontSize: 16, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 4 }}>
+          <div style={{ fontFamily: T.hd, fontSize: 16, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 4 }}>
             {shelf.name}
           </div>
           {shelf.desc && (
-            <div style={{ fontFamily: T.body, fontSize: 13, color: T.ink3, lineHeight: 1.4 }}>
+            <div style={{ fontFamily: T.body, fontSize: 13, color: T.text3, lineHeight: 1.4 }}>
               {shelf.desc}
             </div>
           )}
-          <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4, marginTop: 4 }}>
-            {shelf.count} entries · {fmtNum(shelf.followers)} followers
+          <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text4, marginTop: 4 }}>
+            {shelf.count} entries · {fmtN(shelf.followers)} followers
           </div>
         </div>
-        <span style={{ color: T.ink4, fontSize: 16, flexShrink: 0, marginTop: 2 }}>
+        <span style={{ color: T.text4, fontSize: 16, flexShrink: 0, marginTop: 2 }}>
           {expanded ? '▴' : '▾'}
         </span>
       </button>
@@ -181,10 +181,10 @@ function CuratedShelf({ shelf, T }) {
               <div key={i} style={{
                 padding: '8px 0',
                 borderBottom: i < shelf.books.length - 1 ? `1px solid ${T.border}` : 'none',
-                fontFamily: T.serif, fontSize: 13, fontStyle: 'italic', color: T.ink2,
+                fontFamily: T.hd, fontSize: 13, fontStyle: 'italic', color: T.text2,
                 display: 'flex', alignItems: 'center', gap: 8,
               }}>
-                <span style={{ color: T.ink4, fontSize: 11, fontFamily: T.sans, fontStyle: 'normal', flexShrink: 0 }}>
+                <span style={{ color: T.text4, fontSize: 11, fontFamily: T.ui, fontStyle: 'normal', flexShrink: 0 }}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 {b}
@@ -203,7 +203,7 @@ function BookList({ books, T, showProgress, showRating }) {
       {books.map(book => (
         <div key={book.id} style={{
           display: 'flex', alignItems: 'center', gap: 12,
-          background: T.card, borderRadius: 12, padding: '12px 14px',
+          background: T.surface, borderRadius: 12, padding: '12px 14px',
           border: `1px solid ${T.border}`,
         }}>
           <div style={{
@@ -212,10 +212,10 @@ function BookList({ books, T, showProgress, showRating }) {
             boxShadow: '2px 2px 8px rgba(0,0,0,0.2)',
           }} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontFamily: T.serif, fontSize: 14, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 2 }}>
+            <div style={{ fontFamily: T.hd, fontSize: 14, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 2 }}>
               {book.title}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink3 }}>
+            <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text3 }}>
               {book.author}
             </div>
             {showProgress && (
@@ -227,17 +227,17 @@ function BookList({ books, T, showProgress, showRating }) {
                     borderRadius: 2,
                   }} />
                 </div>
-                <div style={{ fontFamily: T.sans, fontSize: 10, color: T.gold, marginTop: 2 }}>45%</div>
+                <div style={{ fontFamily: T.ui, fontSize: 10, color: T.gold, marginTop: 2 }}>45%</div>
               </div>
             )}
             {showRating && (
-              <div style={{ fontFamily: T.sans, fontSize: 12, color: T.gold, marginTop: 4 }}>
+              <div style={{ fontFamily: T.ui, fontSize: 12, color: T.gold, marginTop: 4 }}>
                 ★ {book.rating}
               </div>
             )}
           </div>
           <button style={{
-            background: 'none', border: 'none', color: T.ink4, cursor: 'pointer', fontSize: 18,
+            background: 'none', border: 'none', color: T.text4, cursor: 'pointer', fontSize: 18,
           }}>⋯</button>
         </div>
       ))}

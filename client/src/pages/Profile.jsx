@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { usePrecis } from '../store.jsx';
-import { CURRENT_USER, POSTS, SHELVES } from '../data.js';
-import { LENSES, TIERS, getTier, fmtNum } from '../themes.js';
+import { CURRENT_USER, POSTS, SHELVES, BOOKS } from '../data.js';
+import { LENSES, TIERS, getTier, fmtN } from '../themes.js';
 import Avatar from '../components/Avatar.jsx';
 import InkBadge from '../components/InkBadge.jsx';
 import PostCard from '../components/PostCard.jsx';
@@ -10,14 +10,14 @@ import Sheet from '../components/Sheet.jsx';
 const PROFILE_TABS = ['Posts', 'Shelves', 'About'];
 
 export default function Profile() {
-  const { theme: T, user } = usePrecis();
+  const { T, user } = usePrecis();
   const [tab, setTab] = useState('Posts');
   const [openInk, setOpenInk] = useState(false);
   const tier = getTier(user.ink);
   const nextTier = TIERS.find(t => user.ink < t.min);
   const lensData = LENSES[user.lens];
   const progress = nextTier ? ((user.ink - tier.min) / (nextTier.min - tier.min)) * 100 : 100;
-  const myPosts = POSTS.filter(p => p.author.id === 'u1');
+  const myPosts = POSTS.filter(p => p.user?.id === "u1");
 
   return (
     <div className="page-content">
@@ -57,10 +57,10 @@ export default function Profile() {
                   borderLeft: i > 0 ? `1px solid ${T.border}` : 'none',
                   padding: '0 4px',
                 }}>
-                  <div style={{ fontFamily: T.sans, fontSize: 17, fontWeight: 800, color: T.ink, lineHeight: 1.2 }}>
-                    {fmtNum(s.value)}
+                  <div style={{ fontFamily: T.ui, fontSize: 17, fontWeight: 800, color: T.text, lineHeight: 1.2 }}>
+                    {fmtN(s.value)}
                   </div>
-                  <div style={{ fontFamily: T.sans, fontSize: 10, color: T.ink4, marginTop: 1 }}>
+                  <div style={{ fontFamily: T.ui, fontSize: 10, color: T.text4, marginTop: 1 }}>
                     {s.label}
                   </div>
                 </div>
@@ -72,18 +72,18 @@ export default function Profile() {
         {/* Name + handle */}
         <div style={{ marginBottom: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: T.sans, fontSize: 18, fontWeight: 800, color: T.ink }}>
+            <span style={{ fontFamily: T.ui, fontSize: 18, fontWeight: 800, color: T.text }}>
               {user.name}
             </span>
             <InkBadge ink={user.ink} showCount />
           </div>
-          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink4, marginTop: 2 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text4, marginTop: 2 }}>
             {user.handle}
           </div>
         </div>
 
         {/* Bio */}
-        <p style={{ fontFamily: T.body, fontSize: 14, color: T.ink2, lineHeight: 1.6, marginBottom: 10 }}>
+        <p style={{ fontFamily: T.body, fontSize: 14, color: T.text2, lineHeight: 1.6, marginBottom: 10 }}>
           {user.bio}
         </p>
 
@@ -93,14 +93,14 @@ export default function Profile() {
             display: 'flex', alignItems: 'center', gap: 4,
             padding: '5px 10px', borderRadius: 8,
             background: `${lensData.color}15`,
-            fontFamily: T.sans, fontSize: 12, fontWeight: 700, color: lensData.color,
+            fontFamily: T.ui, fontSize: 12, fontWeight: 700, color: lensData.color,
           }}>
             {lensData.icon} {lensData.label} Lens
           </span>
-          <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4, display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4, display: 'flex', alignItems: 'center', gap: 4 }}>
             📍 {user.location}
           </span>
-          <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4, display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4, display: 'flex', alignItems: 'center', gap: 4 }}>
             📅 Joined {user.joined}
           </span>
         </div>
@@ -115,12 +115,12 @@ export default function Profile() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <span style={{ fontFamily: T.sans, fontSize: 13, fontWeight: 700, color: tier.color }}>
+            <span style={{ fontFamily: T.ui, fontSize: 13, fontWeight: 700, color: tier.color }}>
               {tier.name}
             </span>
-            <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>
-              {fmtNum(user.ink)} ink
-              {nextTier ? ` · ${fmtNum(nextTier.min - user.ink)} to ${nextTier.name}` : ' · Max tier'}
+            <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>
+              {fmtN(user.ink)} ink
+              {nextTier ? ` · ${fmtN(nextTier.min - user.ink)} to ${nextTier.name}` : ' · Max tier'}
             </span>
           </div>
           <div style={{ height: 6, background: `${tier.color}20`, borderRadius: 3, overflow: 'hidden' }}>
@@ -141,28 +141,28 @@ export default function Profile() {
             background: T.bg3, border: `1px solid ${T.border}`,
             textAlign: 'center',
           }}>
-            <div style={{ fontFamily: T.sans, fontSize: 22, fontWeight: 800, color: T.amber }}>
+            <div style={{ fontFamily: T.ui, fontSize: 22, fontWeight: 800, color: T.amber }}>
               🔥 {user.streak.current}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: 10, color: T.ink4 }}>Day Streak</div>
+            <div style={{ fontFamily: T.ui, fontSize: 10, color: T.text4 }}>Day Streak</div>
           </div>
           <div style={{
             flex: 1, padding: '10px 12px', borderRadius: 10,
             background: T.bg3, border: `1px solid ${T.border}`,
             textAlign: 'center',
           }}>
-            <div style={{ fontFamily: T.sans, fontSize: 22, fontWeight: 800, color: T.gold }}>
+            <div style={{ fontFamily: T.ui, fontSize: 22, fontWeight: 800, color: T.gold }}>
               {user.streak.best}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: 10, color: T.ink4 }}>Best Streak</div>
+            <div style={{ fontFamily: T.ui, fontSize: 10, color: T.text4 }}>Best Streak</div>
           </div>
           {user.currentlyReading && (
             <div style={{
               flex: 2, padding: '10px 12px', borderRadius: 10,
               background: T.bg3, border: `1px solid ${T.border}`,
             }}>
-              <div style={{ fontFamily: T.sans, fontSize: 10, color: T.ink4, marginBottom: 4 }}>Reading</div>
-              <div style={{ fontFamily: T.serif, fontSize: 12, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+              <div style={{ fontFamily: T.ui, fontSize: 10, color: T.text4, marginBottom: 4 }}>Reading</div>
+              <div style={{ fontFamily: T.hd, fontSize: 12, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
                 {user.currentlyReading.title}
               </div>
               <div style={{ height: 4, background: T.bg2, borderRadius: 2, marginTop: 6, overflow: 'hidden' }}>
@@ -171,7 +171,7 @@ export default function Profile() {
                   background: `linear-gradient(90deg, ${T.gold}, ${T.accent})`, borderRadius: 2,
                 }} />
               </div>
-              <div style={{ fontFamily: T.sans, fontSize: 10, color: T.gold, marginTop: 2, textAlign: 'right' }}>
+              <div style={{ fontFamily: T.ui, fontSize: 10, color: T.gold, marginTop: 2, textAlign: 'right' }}>
                 {user.currentlyReading.progress}%
               </div>
             </div>
@@ -182,7 +182,7 @@ export default function Profile() {
         <button style={{
           width: '100%', padding: '10px', borderRadius: 10,
           border: `1px solid ${T.border}`, background: 'transparent',
-          fontFamily: T.sans, fontSize: 13, fontWeight: 700, color: T.ink2,
+          fontFamily: T.ui, fontSize: 13, fontWeight: 700, color: T.text2,
           cursor: 'pointer', marginBottom: 16,
         }}>
           Edit Profile
@@ -203,8 +203,8 @@ export default function Profile() {
               flex: 1, padding: '14px 0',
               border: 'none', borderBottom: `2px solid ${tab === t ? T.gold : 'transparent'}`,
               background: 'transparent', cursor: 'pointer',
-              fontFamily: T.sans, fontSize: 13, fontWeight: tab === t ? 700 : 500,
-              color: tab === t ? T.gold : T.ink4,
+              fontFamily: T.ui, fontSize: 13, fontWeight: tab === t ? 700 : 500,
+              color: tab === t ? T.gold : T.text4,
               transition: 'all 0.15s',
             }}
           >
@@ -232,10 +232,10 @@ export default function Profile() {
         <div>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontFamily: T.serif, fontSize: 40, fontWeight: 800, color: tier.color, fontStyle: 'italic' }}>
-                {fmtNum(user.ink)}
+              <div style={{ fontFamily: T.hd, fontSize: 40, fontWeight: 800, color: tier.color, fontStyle: 'italic' }}>
+                {fmtN(user.ink)}
               </div>
-              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink4 }}>Total Ink</div>
+              <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text4 }}>Total Ink</div>
               <InkBadge ink={user.ink} showCount size="lg" />
             </div>
           </div>
@@ -257,15 +257,15 @@ export default function Profile() {
                     flexShrink: 0,
                   }} />
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: T.sans, fontSize: 13, fontWeight: isActive ? 700 : 500, color: isActive ? t.color : T.ink2 }}>
+                    <div style={{ fontFamily: T.ui, fontSize: 13, fontWeight: isActive ? 700 : 500, color: isActive ? t.color : T.text2 }}>
                       {t.name}
                     </div>
-                    <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4 }}>
-                      {fmtNum(t.min)} ink required
+                    <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text4 }}>
+                      {fmtN(t.min)} ink required
                     </div>
                   </div>
                   {isActive && (
-                    <span style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 700, color: t.color }}>
+                    <span style={{ fontFamily: T.ui, fontSize: 11, fontWeight: 700, color: t.color }}>
                       Current
                     </span>
                   )}
@@ -278,7 +278,7 @@ export default function Profile() {
           </div>
 
           <div style={{ padding: '14px', background: T.bg3, borderRadius: 12 }}>
-            <div style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 700, color: T.ink4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 10 }}>
+            <div style={{ fontFamily: T.ui, fontSize: 11, fontWeight: 700, color: T.text4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 10 }}>
               Breakdown
             </div>
             {[
@@ -287,15 +287,15 @@ export default function Profile() {
               { label: 'Participation', value: 2400, color: T.green },
             ].map(row => (
               <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink3, width: 90 }}>{row.label}</div>
+                <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text3, width: 90 }}>{row.label}</div>
                 <div style={{ flex: 1, height: 6, background: T.bg2, borderRadius: 3, overflow: 'hidden' }}>
                   <div style={{
                     width: `${(row.value / user.ink) * 100}%`, height: '100%',
                     background: row.color, borderRadius: 3,
                   }} />
                 </div>
-                <div style={{ fontFamily: T.sans, fontSize: 12, fontWeight: 700, color: row.color, width: 50, textAlign: 'right' }}>
-                  {fmtNum(row.value)}
+                <div style={{ fontFamily: T.ui, fontSize: 12, fontWeight: 700, color: row.color, width: 50, textAlign: 'right' }}>
+                  {fmtN(row.value)}
                 </div>
               </div>
             ))}
@@ -309,27 +309,27 @@ export default function Profile() {
 function ShelfCard({ shelf, T }) {
   return (
     <div style={{
-      background: T.card, borderRadius: 14,
+      background: T.surface, borderRadius: 14,
       border: `1px solid ${T.border}`,
       padding: '14px 16px',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 6 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: T.serif, fontSize: 16, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 4 }}>
+          <div style={{ fontFamily: T.hd, fontSize: 16, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 4 }}>
             {shelf.name}
           </div>
-          <div style={{ fontFamily: T.body, fontSize: 13, color: T.ink3, lineHeight: 1.5 }}>
+          <div style={{ fontFamily: T.body, fontSize: 13, color: T.text3, lineHeight: 1.5 }}>
             {shelf.desc}
           </div>
         </div>
-        <span style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4, marginLeft: 12, flexShrink: 0 }}>
+        <span style={{ fontFamily: T.ui, fontSize: 11, color: T.text4, marginLeft: 12, flexShrink: 0 }}>
           {shelf.count} entries
         </span>
       </div>
       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginTop: 8 }}>
         {shelf.books.slice(0, 4).map(b => (
           <span key={b} style={{
-            fontSize: 11, fontFamily: T.sans, color: T.ink4,
+            fontSize: 11, fontFamily: T.ui, color: T.text4,
             padding: '3px 8px', background: T.bg3, borderRadius: 6,
             fontStyle: 'italic',
           }}>
@@ -337,12 +337,12 @@ function ShelfCard({ shelf, T }) {
           </span>
         ))}
         {shelf.books.length > 4 && (
-          <span style={{ fontSize: 11, fontFamily: T.sans, color: T.ink4, padding: '3px 8px' }}>
+          <span style={{ fontSize: 11, fontFamily: T.ui, color: T.text4, padding: '3px 8px' }}>
             +{shelf.books.length - 4} more
           </span>
         )}
       </div>
-      <div style={{ marginTop: 10, fontFamily: T.sans, fontSize: 11, color: T.ink4 }}>
+      <div style={{ marginTop: 10, fontFamily: T.ui, fontSize: 11, color: T.text4 }}>
         {shelf.followers} followers
       </div>
     </div>
@@ -355,7 +355,7 @@ function AboutTab({ user, T, lensData, tier }) {
     <div>
       {/* Reading lenses */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 700, color: T.ink4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 12 }}>
+        <div style={{ fontFamily: T.ui, fontSize: 11, fontWeight: 700, color: T.text4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 12 }}>
           Reading Lenses
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -368,13 +368,13 @@ function AboutTab({ user, T, lensData, tier }) {
             }}>
               <span style={{ fontSize: 20 }}>{l.icon}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: T.sans, fontSize: 13, fontWeight: 700, color: l.label === lensData.label ? l.color : T.ink }}>
+                <div style={{ fontFamily: T.ui, fontSize: 13, fontWeight: 700, color: l.label === lensData.label ? l.color : T.text }}>
                   {l.label}
                 </div>
-                <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>{l.desc}</div>
+                <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>{l.desc}</div>
               </div>
               {l.label === lensData.label && (
-                <span style={{ fontSize: 12, color: l.color, fontWeight: 700, fontFamily: T.sans }}>Active</span>
+                <span style={{ fontSize: 12, color: l.color, fontWeight: 700, fontFamily: T.ui }}>Active</span>
               )}
             </div>
           ))}
