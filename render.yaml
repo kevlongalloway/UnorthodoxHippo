@@ -1,0 +1,44 @@
+services:
+  # ─── Static Site (React frontend) ───────────────────────────────────────────
+  - type: web
+    name: precis-app
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+
+  # ─── API Server (Express backend) ────────────────────────────────────────────
+  # Uncomment when backend is ready:
+  # - type: web
+  #   name: precis-api
+  #   runtime: node
+  #   buildCommand: npm install
+  #   startCommand: node server.js
+  #   plan: starter
+  #   envVars:
+  #     - key: NODE_ENV
+  #       value: production
+  #     - key: DATABASE_URL
+  #       sync: false
+  #     - key: ANTHROPIC_API_KEY
+  #       sync: false
+  #     - key: VITE_CLERK_PUBLISHABLE_KEY
+  #       sync: false
+  #     - key: RATE_LIMIT_PER_MIN
+  #       value: 6
+  #     - key: PORT
+  #       fromService:
+  #         name: precis-api
+  #         type: web
+  #         property: port
