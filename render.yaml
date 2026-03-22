@@ -3,6 +3,7 @@ services:
   - type: web
     name: precis-app
     runtime: static
+    rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     pullRequestPreviewsEnabled: true
@@ -23,6 +24,7 @@ services:
   # - type: web
   #   name: precis-api
   #   runtime: node
+  #   rootDir: server
   #   buildCommand: npm install
   #   startCommand: node server.js
   #   plan: starter
@@ -37,8 +39,3 @@ services:
   #       sync: false
   #     - key: RATE_LIMIT_PER_MIN
   #       value: 6
-  #     - key: PORT
-  #       fromService:
-  #         name: precis-api
-  #         type: web
-  #         property: port
