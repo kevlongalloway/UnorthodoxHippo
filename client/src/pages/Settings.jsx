@@ -4,7 +4,7 @@ import { THEMES, THEME_ORDER, LENSES } from '../themes.js';
 import Sheet from '../components/Sheet.jsx';
 
 export default function Settings() {
-  const { theme: T, themeId, setThemeId, user } = usePrecis();
+  const { T, themeId, setThemeId, user } = usePrecis();
   const [lensSheet, setLensSheet] = useState(false);
   const [activeLens, setActiveLens] = useState(user.lens);
 
@@ -52,7 +52,7 @@ export default function Settings() {
     <div className="page-content">
       {/* Header */}
       <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${T.border}` }}>
-        <h2 style={{ fontFamily: T.serif, fontSize: 20, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+        <h2 style={{ fontFamily: T.hd, fontSize: 20, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
           Settings
         </h2>
       </div>
@@ -69,21 +69,21 @@ export default function Settings() {
           background: `linear-gradient(145deg, ${T.bg3}, ${T.bg2})`,
           border: `2px solid ${T.gold}40`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: T.sans, fontSize: 18, fontWeight: 700, color: T.ink2,
+          fontFamily: T.ui, fontSize: 18, fontWeight: 700, color: T.text2,
         }}>
           {user.initials}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: T.sans, fontSize: 15, fontWeight: 700, color: T.ink }}>
+          <div style={{ fontFamily: T.ui, fontSize: 15, fontWeight: 700, color: T.text }}>
             {user.name}
           </div>
-          <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>
             {user.handle}
           </div>
         </div>
         {user.isFoundingReader && (
           <span style={{
-            fontSize: 10, fontFamily: T.sans, fontWeight: 700,
+            fontSize: 10, fontFamily: T.ui, fontWeight: 700,
             color: T.accent, padding: '3px 8px',
             background: `${T.accent}15`, borderRadius: 6,
           }}>
@@ -97,17 +97,17 @@ export default function Settings() {
         <div key={section.title} style={{ marginBottom: 8 }}>
           <div style={{
             padding: '8px 20px 6px',
-            fontFamily: T.sans, fontSize: 10, fontWeight: 700,
-            color: T.ink4, letterSpacing: '0.6px', textTransform: 'uppercase',
+            fontFamily: T.ui, fontSize: 10, fontWeight: 700,
+            color: T.text4, letterSpacing: '0.6px', textTransform: 'uppercase',
           }}>
             {section.title}
           </div>
-          <div style={{ background: T.card, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
+          <div style={{ background: T.surface, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
             {section.items.map((item, i) => (
               <div key={item.label}>
                 {item.component ? (
                   <div style={{ padding: '14px 20px', borderBottom: i < section.items.length - 1 ? `1px solid ${T.border}` : 'none' }}>
-                    <div style={{ fontFamily: T.sans, fontSize: 13, fontWeight: 600, color: T.ink, marginBottom: 10 }}>
+                    <div style={{ fontFamily: T.ui, fontSize: 13, fontWeight: 600, color: T.text, marginBottom: 10 }}>
                       {item.label}
                     </div>
                     {item.component}
@@ -125,16 +125,16 @@ export default function Settings() {
                     onTouchStart={e => { e.currentTarget.style.background = T.bg3; }}
                     onTouchEnd={e => { e.currentTarget.style.background = 'transparent'; }}
                   >
-                    <span style={{ fontFamily: T.sans, fontSize: 14, color: T.ink }}>
+                    <span style={{ fontFamily: T.ui, fontSize: 14, color: T.text }}>
                       {item.label}
                     </span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       {item.value && (
-                        <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>
+                        <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>
                           {item.value}
                         </span>
                       )}
-                      <span style={{ color: T.ink4, fontSize: 14 }}>›</span>
+                      <span style={{ color: T.text4, fontSize: 14 }}>›</span>
                     </div>
                   </button>
                 )}
@@ -150,7 +150,7 @@ export default function Settings() {
           width: '100%', padding: '14px', borderRadius: 12,
           border: `1px solid ${T.red}40`,
           background: `${T.red}08`,
-          fontFamily: T.sans, fontSize: 14, fontWeight: 600,
+          fontFamily: T.ui, fontSize: 14, fontWeight: 600,
           color: T.red, cursor: 'pointer',
         }}>
           Sign Out
@@ -159,7 +159,7 @@ export default function Settings() {
 
       {/* Lens selector sheet */}
       <Sheet open={lensSheet} onClose={() => setLensSheet(false)} title="Reading Lens">
-        <p style={{ fontFamily: T.body, fontSize: 13, color: T.ink3, lineHeight: 1.55, marginBottom: 16 }}>
+        <p style={{ fontFamily: T.body, fontSize: 13, color: T.text3, lineHeight: 1.55, marginBottom: 16 }}>
           Your reading lens shapes how you see books and how others see your writing.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -178,10 +178,10 @@ export default function Settings() {
             >
               <span style={{ fontSize: 24 }}>{lens.icon}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 700, color: activeLens === key ? lens.color : T.ink }}>
+                <div style={{ fontFamily: T.ui, fontSize: 14, fontWeight: 700, color: activeLens === key ? lens.color : T.text }}>
                   {lens.label}
                 </div>
-                <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink3 }}>
+                <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text3 }}>
                   {lens.desc}
                 </div>
               </div>

@@ -21,7 +21,7 @@ const PLACEHOLDER = {
 };
 
 export default function Compose() {
-  const { theme: T, user } = usePrecis();
+  const { T, user } = usePrecis();
   const navigate = useNavigate();
   const textRef = useRef(null);
 
@@ -74,10 +74,10 @@ export default function Compose() {
       <div className="page-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
         <div style={{ textAlign: 'center', animation: 'scaleIn 0.3s ease' }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>✦</div>
-          <div style={{ fontFamily: T.serif, fontSize: 22, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 8 }}>
+          <div style={{ fontFamily: T.hd, fontSize: 22, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 8 }}>
             Published
           </div>
-          <div style={{ fontFamily: T.sans, fontSize: 14, color: T.ink3 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 14, color: T.text3 }}>
             Your work is out in the world.
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function Compose() {
       }}>
         <button
           onClick={() => navigate(-1)}
-          style={{ background: 'none', border: 'none', color: T.ink3, fontSize: 16, cursor: 'pointer', padding: '4px 0' }}
+          style={{ background: 'none', border: 'none', color: T.text3, fontSize: 16, cursor: 'pointer', padding: '4px 0' }}
         >
           ← Back
         </button>
@@ -110,7 +110,7 @@ export default function Compose() {
             border: `1.5px solid ${pt.color}30`,
             background: `${pt.color}10`,
             color: pt.color,
-            fontFamily: T.sans, fontSize: 12, fontWeight: 700,
+            fontFamily: T.ui, fontSize: 12, fontWeight: 700,
             cursor: 'pointer',
           }}
         >
@@ -123,8 +123,8 @@ export default function Compose() {
             padding: '9px 20px', borderRadius: 20,
             border: 'none',
             background: canPublish ? `linear-gradient(135deg, ${T.accent}, ${T.accentHover})` : T.bg3,
-            color: canPublish ? '#fff' : T.ink4,
-            fontFamily: T.sans, fontSize: 13, fontWeight: 700,
+            color: canPublish ? '#fff' : T.text4,
+            fontFamily: T.ui, fontSize: 13, fontWeight: 700,
             cursor: canPublish ? 'pointer' : 'not-allowed',
             transition: 'all 0.15s',
             minWidth: 80,
@@ -139,12 +139,12 @@ export default function Compose() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <Avatar initials={user.initials} ink={user.ink} lens={user.lens} size={38} />
           <div>
-            <div style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 700, color: T.ink }}>
+            <div style={{ fontFamily: T.ui, fontSize: 14, fontWeight: 700, color: T.text }}>
               {user.name}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <span style={{
-                fontSize: 10, fontFamily: T.sans, fontWeight: 600,
+                fontSize: 10, fontFamily: T.ui, fontWeight: 600,
                 color: lensData.color, padding: '1px 6px',
                 background: `${lensData.color}15`, borderRadius: 4,
               }}>
@@ -170,16 +170,16 @@ export default function Compose() {
                   background: `linear-gradient(160deg, ${selectedBook.coverColor}, ${selectedBook.coverColor}88)`,
                 }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: T.serif, fontSize: 13, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+                  <div style={{ fontFamily: T.hd, fontSize: 13, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
                     {selectedBook.title}
                   </div>
-                  <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink3 }}>
+                  <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text3 }}>
                     {selectedBook.author}
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedBook(null)}
-                  style={{ background: 'none', border: 'none', color: T.ink4, cursor: 'pointer', fontSize: 16 }}
+                  style={{ background: 'none', border: 'none', color: T.text4, cursor: 'pointer', fontSize: 16 }}
                 >
                   ×
                 </button>
@@ -192,7 +192,7 @@ export default function Compose() {
                   border: `1.5px dashed ${T.border}`,
                   background: 'transparent', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: 8,
-                  fontFamily: T.sans, fontSize: 13, color: T.ink4,
+                  fontFamily: T.ui, fontSize: 13, color: T.text4,
                 }}
               >
                 <span style={{ fontSize: 16 }}>📚</span>
@@ -212,8 +212,8 @@ export default function Compose() {
             style={{
               width: '100%', padding: '10px 14px', borderRadius: 10,
               border: `1px solid ${T.border}`,
-              background: T.bg2, color: T.ink,
-              fontFamily: T.sans, fontSize: 13,
+              background: T.bg2, color: T.text,
+              fontFamily: T.ui, fontSize: 13,
               outline: 'none', marginBottom: 14,
             }}
           />
@@ -228,8 +228,8 @@ export default function Compose() {
             style={{
               width: '100%', padding: '10px 0', border: 'none',
               borderBottom: `1px solid ${T.border}`,
-              background: 'transparent', color: T.ink,
-              fontFamily: T.serif, fontSize: 20, fontWeight: 700,
+              background: 'transparent', color: T.text,
+              fontFamily: T.hd, fontSize: 20, fontWeight: 700,
               fontStyle: 'italic', outline: 'none', marginBottom: 14,
             }}
           />
@@ -243,8 +243,8 @@ export default function Compose() {
           placeholder={PLACEHOLDER[type]}
           style={{
             width: '100%', minHeight: 200, padding: '0',
-            border: 'none', background: 'transparent', color: T.ink,
-            fontFamily: isPoetry ? T.serif : T.body,
+            border: 'none', background: 'transparent', color: T.text,
+            fontFamily: isPoetry ? T.hd : T.body,
             fontSize: 16, lineHeight: isPoetry ? 1.9 : 1.75,
             outline: 'none', resize: 'none',
             fontStyle: isPoetry ? 'italic' : 'normal',
@@ -254,7 +254,7 @@ export default function Compose() {
 
         {/* Word count */}
         <div style={{
-          fontFamily: T.sans, fontSize: 11, color: T.ink4,
+          fontFamily: T.ui, fontSize: 11, color: T.text4,
           textAlign: 'right', marginTop: 4,
         }}>
           {wordCount} words
@@ -269,7 +269,7 @@ export default function Compose() {
           {[...selectedGenres, ...selectedMoods].map(tag => (
             <span key={tag} style={{
               padding: '5px 10px', borderRadius: 8,
-              fontSize: 12, fontFamily: T.sans, fontWeight: 600,
+              fontSize: 12, fontFamily: T.ui, fontWeight: 600,
               color: T.gold, background: `${T.gold}15`,
               border: `1px solid ${T.gold}25`,
               display: 'flex', alignItems: 'center', gap: 5,
@@ -292,7 +292,7 @@ export default function Compose() {
               padding: '5px 12px', borderRadius: 8,
               border: `1.5px dashed ${T.border}`,
               background: 'transparent', cursor: 'pointer',
-              fontFamily: T.sans, fontSize: 12, color: T.ink4,
+              fontFamily: T.ui, fontSize: 12, color: T.text4,
             }}
           >
             + Add tags
@@ -342,10 +342,10 @@ export default function Compose() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: 22 }}>{t.icon}</span>
                 <div>
-                  <div style={{ fontFamily: T.sans, fontSize: 14, fontWeight: 700, color: POST_TYPES[t.id].color }}>
+                  <div style={{ fontFamily: T.ui, fontSize: 14, fontWeight: 700, color: POST_TYPES[t.id].color }}>
                     {t.label}
                   </div>
-                  <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink3, marginTop: 2 }}>
+                  <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text3, marginTop: 2 }}>
                     {t.desc}
                   </div>
                 </div>
@@ -359,7 +359,7 @@ export default function Compose() {
       {/* Tag selector sheet */}
       <Sheet open={showTagSheet} onClose={() => setShowTagSheet(false)} title="Add Tags">
         <div style={{ marginBottom: 20 }}>
-          <div style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 700, color: T.ink4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 10 }}>Genre</div>
+          <div style={{ fontFamily: T.ui, fontSize: 11, fontWeight: 700, color: T.text4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 10 }}>Genre</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {[...GENRE_TAGS.fiction, ...GENRE_TAGS.nonfiction, ...GENRE_TAGS.poetry].map(tag => {
               const sel = selectedGenres.includes(tag);
@@ -370,8 +370,8 @@ export default function Compose() {
                     border: `1.5px solid ${sel ? T.gold + '60' : T.border}`,
                     background: sel ? `${T.gold}15` : 'transparent',
                     cursor: 'pointer',
-                    fontFamily: T.sans, fontSize: 12, fontWeight: sel ? 700 : 500,
-                    color: sel ? T.gold : T.ink3,
+                    fontFamily: T.ui, fontSize: 12, fontWeight: sel ? 700 : 500,
+                    color: sel ? T.gold : T.text3,
                     transition: 'all 0.12s',
                   }}
                 >
@@ -382,7 +382,7 @@ export default function Compose() {
           </div>
         </div>
         <div>
-          <div style={{ fontFamily: T.sans, fontSize: 11, fontWeight: 700, color: T.ink4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 10 }}>Mood</div>
+          <div style={{ fontFamily: T.ui, fontSize: 11, fontWeight: 700, color: T.text4, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 10 }}>Mood</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {MOOD_TAGS.map(tag => {
               const sel = selectedMoods.includes(tag);
@@ -393,8 +393,8 @@ export default function Compose() {
                     border: `1.5px solid ${sel ? T.rose + '60' : T.border}`,
                     background: sel ? `${T.rose}12` : 'transparent',
                     cursor: 'pointer',
-                    fontFamily: T.sans, fontSize: 12, fontWeight: sel ? 700 : 500,
-                    color: sel ? T.rose : T.ink3,
+                    fontFamily: T.ui, fontSize: 12, fontWeight: sel ? 700 : 500,
+                    color: sel ? T.rose : T.text3,
                     transition: 'all 0.12s',
                   }}
                 >
@@ -415,8 +415,8 @@ export default function Compose() {
           style={{
             width: '100%', padding: '10px 14px', borderRadius: 10,
             border: `1px solid ${T.border}`,
-            background: T.bg3, color: T.ink,
-            fontFamily: T.sans, fontSize: 14,
+            background: T.bg3, color: T.text,
+            fontFamily: T.ui, fontSize: 14,
             outline: 'none', marginBottom: 14,
           }}
         />
@@ -438,10 +438,10 @@ export default function Compose() {
                 background: `linear-gradient(160deg, ${book.coverColor}, ${book.coverColor}88)`,
               }} />
               <div>
-                <div style={{ fontFamily: T.serif, fontSize: 13, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+                <div style={{ fontFamily: T.hd, fontSize: 13, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
                   {book.title}
                 </div>
-                <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink3 }}>
+                <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text3 }}>
                   {book.author} · {book.year}
                 </div>
               </div>
@@ -463,8 +463,8 @@ function ToggleChip({ T, active, onClick, label, icon, desc }) {
         border: `1.5px solid ${active ? T.gold + '60' : T.border}`,
         background: active ? `${T.gold}15` : 'transparent',
         cursor: 'pointer',
-        fontFamily: T.sans, fontSize: 12, fontWeight: active ? 700 : 500,
-        color: active ? T.gold : T.ink3,
+        fontFamily: T.ui, fontSize: 12, fontWeight: active ? 700 : 500,
+        color: active ? T.gold : T.text3,
         transition: 'all 0.15s',
       }}
       title={desc}

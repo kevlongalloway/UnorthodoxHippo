@@ -1,30 +1,15 @@
-import { usePrecis } from '../store.jsx';
-import { getTier, fmtNum } from '../themes.js';
+import { getTier, fmtN } from "../themes.js";
 
-export default function InkBadge({ ink, showCount = false, size = 'sm' }) {
-  const { theme: T } = usePrecis();
-  const tier = getTier(ink);
-  const fontSize = size === 'lg' ? 12 : 10;
-  const padding = size === 'lg' ? '4px 12px' : '2px 8px';
-
+export default function InkBadge({ T, ink, compact }) {
+  const t = getTier(ink);
   return (
     <span style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 4,
-      padding,
-      borderRadius: 6,
-      fontSize,
-      fontWeight: 700,
-      fontFamily: T.sans,
-      letterSpacing: '0.3px',
-      color: tier.color,
-      background: tier.bg,
-      border: `1px solid ${tier.color}25`,
-      flexShrink: 0,
+      display: "inline-flex", alignItems: "center", gap: 3,
+      padding: compact ? "1px 5px" : "2px 7px",
+      borderRadius: 4, fontSize: compact ? 9 : 10, fontWeight: 600,
+      fontFamily: T.ui, color: t.color, background: `${t.color}0D`,
     }}>
-      <span style={{ fontSize: fontSize - 2, opacity: 0.8 }}>●</span>
-      {showCount ? `${fmtNum(ink)} · ${tier.name}` : tier.name}
+      {compact ? fmtN(ink) : `${fmtN(ink)} · ${t.name}`}
     </span>
   );
 }

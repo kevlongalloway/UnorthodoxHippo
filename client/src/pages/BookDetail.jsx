@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePrecis } from '../store.jsx';
-import { BOOKS, POSTS } from '../data.js';
-import { fmtNum } from '../themes.js';
+import { BOOKS, FEED_ITEMS as POSTS } from '../data.js';
+import { fmtN } from '../themes.js';
 import PostCard from '../components/PostCard.jsx';
 
 const BOOK_TABS = ['About', 'Reviews', 'Discussions', 'Waypoints'];
 
 export default function BookDetail() {
-  const { theme: T } = usePrecis();
+  const { T } = usePrecis();
   const navigate = useNavigate();
   const [tab, setTab] = useState('About');
   const [reading, setReading] = useState(false);
@@ -16,7 +16,7 @@ export default function BookDetail() {
 
   // Use first book as sample
   const book = BOOKS[0];
-  const bookPosts = POSTS.filter(p => p.bookRef?.title === book.title || Math.random() > 0.5).slice(0, 4);
+  const bookPosts = POSTS.filter(p => p.bookRef?.title === book.title).slice(0, 4);
 
   return (
     <div className="page-content">
@@ -24,7 +24,7 @@ export default function BookDetail() {
       <div style={{ padding: '12px 16px 0' }}>
         <button
           onClick={() => navigate(-1)}
-          style={{ background: 'none', border: 'none', color: T.ink3, fontSize: 14, cursor: 'pointer', padding: 0 }}
+          style={{ background: 'none', border: 'none', color: T.text3, fontSize: 14, cursor: 'pointer', padding: 0 }}
         >
           ← Back
         </button>
@@ -45,21 +45,21 @@ export default function BookDetail() {
           📖
         </div>
         <div style={{ flex: 1 }}>
-          <h1 style={{ fontFamily: T.serif, fontSize: 22, fontWeight: 800, color: T.ink, fontStyle: 'italic', lineHeight: 1.2, marginBottom: 6 }}>
+          <h1 style={{ fontFamily: T.hd, fontSize: 22, fontWeight: 800, color: T.text, fontStyle: 'italic', lineHeight: 1.2, marginBottom: 6 }}>
             {book.title}
           </h1>
-          <div style={{ fontFamily: T.sans, fontSize: 14, color: T.ink3, marginBottom: 6 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 14, color: T.text3, marginBottom: 6 }}>
             {book.author}
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
-            <span style={{ fontFamily: T.sans, fontSize: 12, color: T.gold }}>★ {book.rating}</span>
-            <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>·</span>
-            <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>{book.year}</span>
-            <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>·</span>
-            <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>{book.pages} pages</span>
+            <span style={{ fontFamily: T.ui, fontSize: 12, color: T.gold }}>★ {book.rating}</span>
+            <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>·</span>
+            <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>{book.year}</span>
+            <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>·</span>
+            <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>{book.pages} pages</span>
           </div>
           <span style={{
-            fontSize: 11, fontFamily: T.sans, fontWeight: 600,
+            fontSize: 11, fontFamily: T.ui, fontWeight: 600,
             color: T.teal, padding: '3px 8px',
             background: `${T.teal}15`, borderRadius: 6,
           }}>
@@ -76,8 +76,8 @@ export default function BookDetail() {
             flex: 1, padding: '11px', borderRadius: 10,
             border: reading ? `1px solid ${T.border}` : 'none',
             background: reading ? 'transparent' : `linear-gradient(135deg, ${T.accent}, ${T.accentHover})`,
-            color: reading ? T.ink3 : '#fff',
-            fontFamily: T.sans, fontSize: 13, fontWeight: 700,
+            color: reading ? T.text3 : '#fff',
+            fontFamily: T.ui, fontSize: 13, fontWeight: 700,
             cursor: 'pointer', transition: 'all 0.15s',
           }}
         >
@@ -89,8 +89,8 @@ export default function BookDetail() {
             flex: 1, padding: '11px', borderRadius: 10,
             border: `1px solid ${wanted ? T.gold + '60' : T.border}`,
             background: wanted ? `${T.gold}12` : 'transparent',
-            color: wanted ? T.gold : T.ink3,
-            fontFamily: T.sans, fontSize: 13, fontWeight: 700,
+            color: wanted ? T.gold : T.text3,
+            fontFamily: T.ui, fontSize: 13, fontWeight: 700,
             cursor: 'pointer', transition: 'all 0.15s',
           }}
         >
@@ -101,8 +101,8 @@ export default function BookDetail() {
           style={{
             padding: '11px 16px', borderRadius: 10,
             border: `1px solid ${T.border}`,
-            background: 'transparent', color: T.ink3,
-            fontFamily: T.sans, fontSize: 13, fontWeight: 700,
+            background: 'transparent', color: T.text3,
+            fontFamily: T.ui, fontSize: 13, fontWeight: 700,
             cursor: 'pointer',
           }}
         >
@@ -127,10 +127,10 @@ export default function BookDetail() {
             flex: 1, textAlign: 'center',
             borderLeft: i > 0 ? `1px solid ${T.border}` : 'none',
           }}>
-            <div style={{ fontFamily: T.sans, fontSize: 16, fontWeight: 800, color: T.ink }}>
-              {fmtNum(stat.value)}
+            <div style={{ fontFamily: T.ui, fontSize: 16, fontWeight: 800, color: T.text }}>
+              {fmtN(stat.value)}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: 10, color: T.ink4, marginTop: 1 }}>
+            <div style={{ fontFamily: T.ui, fontSize: 10, color: T.text4, marginTop: 1 }}>
               {stat.label}
             </div>
           </div>
@@ -150,8 +150,8 @@ export default function BookDetail() {
               padding: '8px 14px', borderRadius: 20,
               border: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
               background: tab === t ? T.accent : T.bg3,
-              color: tab === t ? '#fff' : T.ink3,
-              fontFamily: T.sans, fontSize: 12, fontWeight: 600,
+              color: tab === t ? '#fff' : T.text3,
+              fontFamily: T.ui, fontSize: 12, fontWeight: 600,
               transition: 'all 0.15s',
             }}
           >
@@ -163,7 +163,7 @@ export default function BookDetail() {
       <div style={{ padding: '0 16px' }}>
         {tab === 'About' && (
           <div>
-            <p style={{ fontFamily: T.body, fontSize: 14.5, color: T.ink2, lineHeight: 1.75, marginBottom: 16 }}>
+            <p style={{ fontFamily: T.body, fontSize: 14.5, color: T.text2, lineHeight: 1.75, marginBottom: 16 }}>
               A moving and harrowing tale of a former slave woman, living in post-Civil War Ohio, who is haunted by the ghost of her dead daughter. Winner of the Pulitzer Prize for Fiction in 1988.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -175,8 +175,8 @@ export default function BookDetail() {
                 { label: 'ISBN', value: '978-1-4000-3341-6' },
               ].map(({ label, value }) => (
                 <div key={label} style={{ display: 'flex', gap: 12, padding: '8px 0', borderBottom: `1px solid ${T.border}` }}>
-                  <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4, width: 90, flexShrink: 0 }}>{label}</span>
-                  <span style={{ fontFamily: T.sans, fontSize: 13, color: T.ink }}>{value}</span>
+                  <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4, width: 90, flexShrink: 0 }}>{label}</span>
+                  <span style={{ fontFamily: T.ui, fontSize: 13, color: T.text }}>{value}</span>
                 </div>
               ))}
             </div>
@@ -186,7 +186,7 @@ export default function BookDetail() {
         {tab === 'Reviews' && (
           <div>
             {bookPosts.filter(p => p.type === 'review').length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '40px 20px', color: T.ink4, fontStyle: 'italic', fontFamily: T.serif }}>
+              <div style={{ textAlign: 'center', padding: '40px 20px', color: T.text4, fontStyle: 'italic', fontFamily: T.hd }}>
                 No reviews yet. Be the first.
               </div>
             ) : (
@@ -213,22 +213,22 @@ export default function BookDetail() {
               { page: 250, text: 'The question of whether memory is burden or survival tool becomes impossible to answer here.', lens: 'philosopher', author: 'Elena Vasquez', initials: 'EV' },
             ].map((wp, i) => (
               <div key={i} style={{
-                background: T.card, borderRadius: 12, padding: '14px',
+                background: T.surface, borderRadius: 12, padding: '14px',
                 border: `1px solid ${T.border}`, marginBottom: 10,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                   <div style={{
                     padding: '3px 10px', borderRadius: 20,
                     background: `${T.gold}18`, border: `1px solid ${T.gold}30`,
-                    fontFamily: T.sans, fontSize: 11, fontWeight: 700, color: T.gold,
+                    fontFamily: T.ui, fontSize: 11, fontWeight: 700, color: T.gold,
                   }}>
                     p. {wp.page}
                   </div>
-                  <span style={{ fontFamily: T.sans, fontSize: 12, fontWeight: 700, color: T.ink }}>
+                  <span style={{ fontFamily: T.ui, fontSize: 12, fontWeight: 700, color: T.text }}>
                     {wp.author}
                   </span>
                 </div>
-                <p style={{ fontFamily: T.body, fontSize: 13, color: T.ink2, lineHeight: 1.6, fontStyle: 'italic' }}>
+                <p style={{ fontFamily: T.body, fontSize: 13, color: T.text2, lineHeight: 1.6, fontStyle: 'italic' }}>
                   "{wp.text}"
                 </p>
               </div>

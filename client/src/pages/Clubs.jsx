@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { usePrecis } from '../store.jsx';
 import { CLUBS } from '../data.js';
-import { fmtNum } from '../themes.js';
+import { fmtN } from '../themes.js';
 import Avatar from '../components/Avatar.jsx';
 import Sheet from '../components/Sheet.jsx';
 
 export default function Clubs() {
-  const { theme: T } = usePrecis();
+  const { T } = usePrecis();
   const [clubs, setClubs] = useState(CLUBS);
   const [selected, setSelected] = useState(null);
   const [filter, setFilter] = useState('all');
@@ -23,10 +23,10 @@ export default function Clubs() {
     <div className="page-content">
       {/* Header */}
       <div style={{ padding: '16px 16px 12px', borderBottom: `1px solid ${T.border}` }}>
-        <h2 style={{ fontFamily: T.serif, fontSize: 20, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 4 }}>
+        <h2 style={{ fontFamily: T.hd, fontSize: 20, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 4 }}>
           Book Clubs
         </h2>
-        <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink3 }}>
+        <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text3 }}>
           {myClubs.length} clubs · {clubs.length} total
         </div>
       </div>
@@ -37,8 +37,8 @@ export default function Clubs() {
           <button key={f.id} onClick={() => setFilter(f.id)} style={{
             padding: '7px 14px', borderRadius: 20, border: 'none', cursor: 'pointer',
             background: filter === f.id ? T.accent : T.bg3,
-            color: filter === f.id ? '#fff' : T.ink3,
-            fontFamily: T.sans, fontSize: 12, fontWeight: 600, transition: 'all 0.15s',
+            color: filter === f.id ? '#fff' : T.text3,
+            fontFamily: T.ui, fontSize: 12, fontWeight: 600, transition: 'all 0.15s',
           }}>
             {f.label}
           </button>
@@ -63,8 +63,8 @@ export default function Clubs() {
 function ClubCard({ club, T, onOpen, onToggle }) {
   return (
     <div style={{
-      background: T.card, borderRadius: 16,
-      border: `1px solid ${club.joined ? T.borderHover : T.border}`,
+      background: T.surface, borderRadius: 16,
+      border: `1px solid ${club.joined ? T.borderActive : T.border}`,
       marginBottom: 12, padding: '16px',
       cursor: 'pointer',
     }}
@@ -80,10 +80,10 @@ function ClubCard({ club, T, onOpen, onToggle }) {
           📚
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: T.serif, fontSize: 16, fontWeight: 700, color: T.ink, fontStyle: 'italic', marginBottom: 2 }}>
+          <div style={{ fontFamily: T.hd, fontSize: 16, fontWeight: 700, color: T.text, fontStyle: 'italic', marginBottom: 2 }}>
             {club.name}
           </div>
-          <div style={{ fontFamily: T.body, fontSize: 13, color: T.ink3, lineHeight: 1.4 }}>
+          <div style={{ fontFamily: T.body, fontSize: 13, color: T.text3, lineHeight: 1.4 }}>
             {club.desc}
           </div>
         </div>
@@ -93,8 +93,8 @@ function ClubCard({ club, T, onOpen, onToggle }) {
             padding: '7px 12px', borderRadius: 20, flexShrink: 0,
             border: club.joined ? `1px solid ${T.border}` : 'none',
             background: club.joined ? 'transparent' : T.accent,
-            color: club.joined ? T.ink3 : '#fff',
-            fontFamily: T.sans, fontSize: 11, fontWeight: 700,
+            color: club.joined ? T.text3 : '#fff',
+            fontFamily: T.ui, fontSize: 11, fontWeight: 700,
             cursor: 'pointer', transition: 'all 0.15s',
           }}
         >
@@ -110,29 +110,29 @@ function ClubCard({ club, T, onOpen, onToggle }) {
       }}>
         <span style={{ fontSize: 16 }}>📖</span>
         <div>
-          <div style={{ fontFamily: T.sans, fontSize: 10, color: T.ink4, marginBottom: 1, textTransform: 'uppercase', letterSpacing: '0.4px', fontWeight: 700 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 10, color: T.text4, marginBottom: 1, textTransform: 'uppercase', letterSpacing: '0.4px', fontWeight: 700 }}>
             Now Reading
           </div>
-          <div style={{ fontFamily: T.serif, fontSize: 13, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+          <div style={{ fontFamily: T.hd, fontSize: 13, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
             {club.currentBook.title}
           </div>
-          <div style={{ fontFamily: T.sans, fontSize: 11, color: T.ink3 }}>
+          <div style={{ fontFamily: T.ui, fontSize: 11, color: T.text3 }}>
             {club.currentBook.author} · {club.chapter}
           </div>
         </div>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>
-          {fmtNum(club.members)} members
+        <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>
+          {fmtN(club.members)} members
         </span>
-        <span style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4 }}>
+        <span style={{ fontFamily: T.ui, fontSize: 12, color: T.text4 }}>
           📅 {club.nextMeeting}
         </span>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 5 }}>
           {club.tags.map(tag => (
             <span key={tag} style={{
-              fontSize: 10, fontFamily: T.sans, color: T.ink4,
+              fontSize: 10, fontFamily: T.ui, color: T.text4,
               padding: '2px 7px', background: T.bg3, borderRadius: 5,
             }}>
               {tag}
@@ -155,7 +155,7 @@ function ClubDetail({ club, T, onJoin }) {
 
   return (
     <div>
-      <p style={{ fontFamily: T.body, fontSize: 14, color: T.ink3, lineHeight: 1.6, marginBottom: 16 }}>
+      <p style={{ fontFamily: T.body, fontSize: 14, color: T.text3, lineHeight: 1.6, marginBottom: 16 }}>
         {club.desc}
       </p>
 
@@ -163,22 +163,22 @@ function ClubDetail({ club, T, onJoin }) {
         padding: '12px', borderRadius: 12,
         background: `${T.gold}0A`, border: `1px solid ${T.gold}20`, marginBottom: 16,
       }}>
-        <div style={{ fontFamily: T.sans, fontSize: 10, fontWeight: 700, color: T.gold, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 6 }}>
+        <div style={{ fontFamily: T.ui, fontSize: 10, fontWeight: 700, color: T.gold, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: 6 }}>
           Currently Reading
         </div>
-        <div style={{ fontFamily: T.serif, fontSize: 16, fontWeight: 700, color: T.ink, fontStyle: 'italic' }}>
+        <div style={{ fontFamily: T.hd, fontSize: 16, fontWeight: 700, color: T.text, fontStyle: 'italic' }}>
           {club.currentBook.title}
         </div>
-        <div style={{ fontFamily: T.sans, fontSize: 13, color: T.ink3 }}>
+        <div style={{ fontFamily: T.ui, fontSize: 13, color: T.text3 }}>
           {club.currentBook.author} · {club.chapter}
         </div>
-        <div style={{ fontFamily: T.sans, fontSize: 12, color: T.ink4, marginTop: 6 }}>
+        <div style={{ fontFamily: T.ui, fontSize: 12, color: T.text4, marginTop: 6 }}>
           Next meeting: {club.nextMeeting}
         </div>
       </div>
 
       {/* Discussion */}
-      <div style={{ fontFamily: T.sans, fontSize: 13, fontWeight: 700, color: T.ink2, marginBottom: 12 }}>
+      <div style={{ fontFamily: T.ui, fontSize: 13, fontWeight: 700, color: T.text2, marginBottom: 12 }}>
         Discussions
       </div>
       {mockDiscussions.map((d, i) => (
@@ -188,13 +188,13 @@ function ClubDetail({ club, T, onJoin }) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
             <Avatar initials={d.author.initials} ink={d.author.ink} size={28} />
-            <span style={{ fontFamily: T.sans, fontSize: 12, fontWeight: 700, color: T.ink }}>{d.author.name}</span>
-            <span style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4, marginLeft: 'auto' }}>{d.time}</span>
+            <span style={{ fontFamily: T.ui, fontSize: 12, fontWeight: 700, color: T.text }}>{d.author.name}</span>
+            <span style={{ fontFamily: T.ui, fontSize: 11, color: T.text4, marginLeft: 'auto' }}>{d.time}</span>
           </div>
-          <p style={{ fontFamily: T.body, fontSize: 13, color: T.ink2, lineHeight: 1.5, marginBottom: 6 }}>
+          <p style={{ fontFamily: T.body, fontSize: 13, color: T.text2, lineHeight: 1.5, marginBottom: 6 }}>
             {d.text}
           </p>
-          <span style={{ fontFamily: T.sans, fontSize: 11, color: T.ink4 }}>
+          <span style={{ fontFamily: T.ui, fontSize: 11, color: T.text4 }}>
             💬 {d.replies} replies
           </span>
         </div>
@@ -207,14 +207,14 @@ function ClubDetail({ club, T, onJoin }) {
           placeholder="Add to the discussion…"
           style={{
             flex: 1, padding: '10px 14px', borderRadius: 10,
-            border: `1px solid ${T.border}`, background: T.bg3, color: T.ink,
+            border: `1px solid ${T.border}`, background: T.bg3, color: T.text,
             fontFamily: T.body, fontSize: 14, outline: 'none',
           }}
         />
         <button style={{
           padding: '10px 16px', borderRadius: 10, border: 'none',
           background: T.accent, color: '#fff',
-          fontFamily: T.sans, fontSize: 13, fontWeight: 700, cursor: 'pointer',
+          fontFamily: T.ui, fontSize: 13, fontWeight: 700, cursor: 'pointer',
         }}>
           Post
         </button>
@@ -224,7 +224,7 @@ function ClubDetail({ club, T, onJoin }) {
         <button onClick={onJoin} style={{
           width: '100%', marginTop: 16, padding: '14px', borderRadius: 12,
           border: 'none', background: `linear-gradient(135deg, ${T.accent}, ${T.accentHover})`,
-          color: '#fff', fontFamily: T.sans, fontSize: 14, fontWeight: 700, cursor: 'pointer',
+          color: '#fff', fontFamily: T.ui, fontSize: 14, fontWeight: 700, cursor: 'pointer',
         }}>
           Join This Club
         </button>
