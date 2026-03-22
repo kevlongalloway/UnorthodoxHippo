@@ -1,5 +1,8 @@
-node_modules/
-dist/
+client/node_modules/
+client/dist/
 .env
 .env.local
 .DS_Store
+*.pptx
+*.zip
+*.pdf
