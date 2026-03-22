@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import PersistentNav from './components/nav/PersistentNav.jsx';
 
 // Lazy-load all pages so the initial bundle stays small
 const Feed          = lazy(() => import('./components/builds/precis-feed-v8.jsx'));
@@ -48,7 +47,6 @@ function NotFound() {
 export default function App() {
   return (
     <>
-      <PersistentNav />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Default: redirect root to feed */}
